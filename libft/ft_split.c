@@ -6,13 +6,13 @@
 /*   By: mekundur <mekundur@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 11:33:30 by mekundur          #+#    #+#             */
-/*   Updated: 2024/04/14 16:59:32 by mekundur         ###   ########.fr       */
+/*   Updated: 2025/02/26 16:15:23 by mekundur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*free_ft_split_array(char **arr)
+static char	*free_ft_split_array(char **arr)
 {
 	size_t	i;
 

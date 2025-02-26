@@ -18,6 +18,15 @@ typedef struct s_map_data
         int             *color;
         int             c;  
         int             r;  
+        char            **lines;
+        
+        char	*no_texture;
+        char	*so_texture;
+        char	*we_texture;
+        char	*ea_texture;
+	char	*f_color;
+	char	*c_color;
+
         float   dscale;
         int             width;
         int             height;
@@ -35,13 +44,12 @@ typedef struct s_map_data
         float   s;  
         float   x_inc;
         float   y_inc;
-
 }       t_map;
 
 void            ft_map_init(t_map *map);
 void		*get_map_data(char *argv, t_map *map);
 void            ft_dda_init(t_map *map);
-int                     ft_column_count(char *argv);
+// int                     ft_column_count(char *argv);
 int                     ft_row_count(char *argv);
 void            ft_free_all(t_map *map);
 

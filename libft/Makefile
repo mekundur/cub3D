@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mekundur <mekundur@student.42berlin.d      +#+  +:+       +#+         #
+#    By: mekundur <mekundur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/16 19:34:04 by mekundur          #+#    #+#              #
-#    Updated: 2024/09/03 13:15:54 by mekundur         ###   ########.fr        #
+#    Updated: 2025/02/26 16:13:39 by mekundur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SOURCES = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 	  ft_putendl_fd.c ft_putnbr_fd.c ft_memchr.c ft_calloc.c ft_striteri.c \
 	  ft_lstsize.c ft_lstadd_front.c ft_lstadd_back.c ft_lstdelone.c \
 	  ft_lstclear.c ft_lstiter.c ft_lstnew.c ft_lstlast.c ft_lstmap.c \
-	  get_next_line.c get_next_line_utils.c \
+	  get_next_line.c get_next_line_utils.c ft_split_wspaces.c \
 	  ft_printf.c ft_printf_hexflags.c ft_printf_nbrflags.c \
 	  ft_printf_putchar.c ft_printf_puthex.c ft_printf_putnbr.c \
 	  ft_printf_putptr.c ft_printf_putstr.c ft_printf_strutils.c \

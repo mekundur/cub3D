@@ -1,6 +1,22 @@
 
 #include "cub3d.h"
 
+void	ft_2dstrfree(char **str)
+{
+	int	i;
+
+	if (str == NULL)
+		return ;
+	i = 0;
+	while (str[i] != NULL)
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+	str = NULL;
+}
+
 int	ft_coloumn_count(char *argv)
 {
 	int		fd;
@@ -20,29 +36,8 @@ int	ft_coloumn_count(char *argv)
 	}
 	close(fd);
 	free(line);
-	free_ft_split_array(tmp);
+	ft_2dstrfree(tmp);
 	return (col);
-}
-
-int	ft_row_count(char *argv)
-{
-	int		row;
-	int		fd;
-	char	*tmp;
-
-	row = 0;
-	tmp = "1";
-	fd = open(argv, O_RDONLY);
-	while (1)
-	{
-		tmp = get_next_line(fd);
-		if (!tmp)
-			break ;
-		free(tmp);
-		row++;
-	}
-	close(fd);
-	return (row);
 }
 
 void	put_data(t_map *map, char **str, int i, int j)
@@ -65,31 +60,96 @@ void	put_data(t_map *map, char **str, int i, int j)
 	}
 }
 
-void	get_data(char *argv, t_map *map)
+void	get_textures(t_map *map)
 {
 	int		i;
 	int		j;
-	int		fd;
-	char	**str;
-	char	*line;
+	char	**tmp;
 
+	i = 0;
+	tmp = NULL;
+	while (map->lines && map->lines[i])
+	{
+		tmp = ft_split_wspaces(map->lines[i]);
+		j = 0;
+		while (tmp && tmp[j])
+		{
+			if (ft_strnstr(tmp[j], "NO", 2) && ft_strnstr(tmp[j + 1], "./", 2))
+				map->no_texture = ft_strdup(tmp[j + 1]);
+			else if (ft_strnstr(tmp[j], "SO", 2) && ft_strnstr(tmp[j + 1], "./", 2))
+				map->so_texture = ft_strdup(tmp[j + 1]);
+			else if (ft_strnstr(tmp[j], "WE", 2) && ft_strnstr(tmp[j + 1], "./", 2))
+				map->we_texture = ft_strdup(tmp[j + 1]);
+			else if (ft_strnstr(tmp[j], "EA", 2) && ft_strnstr(tmp[j + 1], "./", 2))
+				map->ea_texture = ft_strdup(tmp[j + 1]);
+			j++;
+		}
+		ft_2dstrfree(tmp);
+		i++;
+	}	
+}
+
+int	ft_row_count(char *argv)
+{
+	int		row;
+	int		fd;
+	char	*tmp;
+
+	row = 0;
+	tmp = NULL;
+	fd = open(argv, O_RDONLY);
+	while (1)
+	{
+		tmp = get_next_line(fd);
+		if (!tmp)
+			break ;
+		free(tmp);
+		row++;
+	}
+	close(fd);
+	return (row);
+}
+
+void	get_data(char *argv, t_map *map)
+{
+	int		i;
+	int		fd;
+	// char	*line;
+
+	map->lines = (char **)calloc(map->r + 1, sizeof(char *));
+	if (!map->lines)
+		return ;
+	map->lines[map->r] = NULL;
 	fd = open(argv, O_RDONLY);
 	i = 0;
 	while (i < map->r)
+		map->lines[i++] = get_next_line(fd);
+	close (fd);
+}
+
+void	get_colors(t_map *map)
+{
+	int		i;
+	int		j;
+	char	**tmp;
+
+	i = 0;
+	tmp = NULL;
+	while (map->lines && map->lines[i])
 	{
-		line = get_next_line(fd);
-		str = ft_split(line, ' ');
+		tmp = ft_split_wspaces(map->lines[i]);
 		j = 0;
-		while (j < map->c)
+		while (tmp && tmp[j])
 		{
-			put_data(map, str, i, j);
+			if (ft_strnstr(tmp[j], "F", 1))
+				map->f_color = ft_strdup(tmp[j + 1]);
+			else if (ft_strnstr(tmp[j], "C", 1))
+				map->c_color = ft_strdup(tmp[j + 1]);
 			j++;
 		}
-		free(line);
-		free_ft_split_array(str);
+		ft_2dstrfree(tmp);
 		i++;
-	}
-	close (fd);
+	}	
 }
 
 void	*get_map_data(char *argv, t_map *map)
@@ -100,12 +160,14 @@ void	*get_map_data(char *argv, t_map *map)
 //	ft_map_init(map);
 	map->r = ft_row_count(argv);
 	printf("map_row: %d\n", map->r);
-	map->c = ft_coloumn_count(argv);
-	printf("map_col: %d\n", map->c);
+//	map->c = ft_coloumn_count(argv);
+//	printf("map_col: %d\n", map->c);
 //	map->number = (int *)malloc(map->c * map->r * sizeof(int));
 //	map->color = (int *)malloc(map->c * map->r * sizeof(int));
 //	if (!map->color || !map->number)
 //		return (0);
 	get_data(argv, map);
+	get_textures(map);
+	get_colors(map);
 	return (map);
 }
