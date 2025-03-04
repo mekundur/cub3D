@@ -6,21 +6,11 @@
 /*   By: mekundur <mekundur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 16:04:10 by mekundur          #+#    #+#             */
-/*   Updated: 2025/02/26 16:19:50 by mekundur         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:51:34 by mekundur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-int	ft_is_whitespace(char s)
-{
-	char	*whitespace;
-
-	whitespace = " \t\r\v";
-	if (ft_strchr(whitespace, s))
-		return (1);
-	return (0);
-}
 
 static char	*free_ft_split_array(char **arr)
 {

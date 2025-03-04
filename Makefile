@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mekundur <mekundur@student.42berlin.d      +#+  +:+       +#+         #
+#    By: mekundur <mekundur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/19 16:21:47 by mekundur          #+#    #+#              #
-#    Updated: 2025/02/19 16:37:06 by mekundur         ###   ########.fr        #
+#    Updated: 2025/03/04 17:08:27 by mekundur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 LIBFT = ./libft/libft.a
 MLX42 = ./MLX42/build/libmlx42.a
-SOURCES = main.c get_map_data.c
+SOURCES = main.c get_scene_data.c parse_map.c utils_2dstr.c
 
 OBJECTS = $(SOURCES:.c=.o)
 

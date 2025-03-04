@@ -6,7 +6,7 @@
 /*   By: mekundur <mekundur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:10:51 by mekundur          #+#    #+#             */
-/*   Updated: 2025/02/26 16:15:44 by mekundur         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:55:51 by mekundur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void			*ft_calloc(size_t nmemb, size_t size);
 void			ft_striteri(char *s, void (*f)(unsigned int, char*));
 char			*get_next_line(int fd);
 int				ft_printf(const char *format, ...);
+int				ft_is_whitespace(char s);
+int				ft_is_emptyline(char *s);
 
 typedef struct s_list
 {

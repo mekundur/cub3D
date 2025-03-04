@@ -12,45 +12,39 @@
 # include "libft/libft.h"
 
 
+
 typedef struct s_map_data
 {
-        int             *number;
-        int             *color;
-        int             c;  
-        int             r;  
-        char            **lines;
-        
+        char    **coor;
+	char	player_x;
+	char	player_y;
+	char	player_o;
+	int	player_flag;
+} t_map;
+
+typedef struct s_scene_data
+{
+        int     col;  
+        int     row;  
+        char    **lines;  
         char	*no_texture;
         char	*so_texture;
         char	*we_texture;
         char	*ea_texture;
 	char	*f_color;
 	char	*c_color;
+        int     del_line;
+        int     map_first_line;
+        int     map_last_line;
+	t_map	*map;
+} t_scene;
 
-        float   dscale;
-        int             width;
-        int             height;
-        float   x_min;
-        float   x_max;
-        float   y_min;
-        float   y_max;
-        float   length_x;
-        float   length_y;
-        float   *x; 
-        float   *y; 
-        float   *z; 
-        float   dx; 
-        float   dy; 
-        float   s;  
-        float   x_inc;
-        float   y_inc;
-}       t_map;
-
-void            ft_map_init(t_map *map);
-void		*get_map_data(char *argv, t_map *map);
-void            ft_dda_init(t_map *map);
-// int                     ft_column_count(char *argv);
-int                     ft_row_count(char *argv);
-void            ft_free_all(t_map *map);
+void    ft_scene_init(t_scene *scene);
+void	get_scene_data(char *argv, t_scene *scene);
+void    parse_map(t_scene *scene);
+void    ft_dda_init(t_scene *scene);
+int     ft_row_count(char *argv);
+void    ft_free_all(t_scene *scene);
+void    ft_2dstrfree(char **str);
 
 #endif
