@@ -6,7 +6,7 @@
 /*   By: mekundur <mekundur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:30:47 by mekundur          #+#    #+#             */
-/*   Updated: 2025/03/04 17:11:56 by mekundur         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:09:06 by mekundur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ void	ft_cleanup(t_scene *scene)
 	free(scene->f_color);
 	printf("%s", scene->c_color);
 	free(scene->c_color);
+	printf("%d\n", scene->map_first_line);
+	printf("%d\n", scene->map_last_line);
+
 
 }
 
@@ -50,6 +53,8 @@ void	initialize(t_scene *scene, t_map *map)
 	scene->f_color = NULL;
 	scene->c_color = NULL;
 	scene->del_line = 0;
+	scene->map_first_line = 0;
+	scene->map_last_line = 0;
 	scene->map = map;
 	map->player_x = 0;
 	map->player_y = 0;

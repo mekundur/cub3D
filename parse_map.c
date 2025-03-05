@@ -6,7 +6,7 @@
 /*   By: mekundur <mekundur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:07:44 by mekundur          #+#    #+#             */
-/*   Updated: 2025/03/04 17:10:41 by mekundur         ###   ########.fr       */
+/*   Updated: 2025/03/05 18:20:49 by mekundur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	parse_map(t_scene *scene)
 	while (i-- > 0)
 	{
 		j = 0;
-		while (scene->lines[j] && ft_is_whitespace(scene->lines[j]));
+		while (scene->lines[j] && ft_is_whitespace(scene->lines[i][j]))
 			j++;
 		if (scene->lines[j] == 0)
 			break;
@@ -32,8 +32,8 @@ void	parse_map(t_scene *scene)
 			scene->map_last_line = i;
 	}
 }
-
-void	get_orientation(t_map *map);
+/*
+void	get_orientation(t_scene *scene, t_map *map)
 {
 	int	i;
 	
@@ -62,4 +62,4 @@ void	get_orientation(t_map *map);
 		}
 	}
 }
-
+*/

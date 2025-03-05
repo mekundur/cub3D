@@ -6,7 +6,7 @@
 /*   By: mekundur <mekundur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:30:38 by mekundur          #+#    #+#             */
-/*   Updated: 2025/03/04 17:07:27 by mekundur         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:32:59 by mekundur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,16 @@ void	get_textures(t_scene *scene)
 
 	i = 0;
 	tmp = NULL;
-	while (scene->lines && scene->lines[i])
+	while (scene->lines && scene->lines[i]
+			&& !(scene->no_texture && scene->so_texture && scene->we_texture
+			&& scene->ea_texture))
 	{
 		tmp = ft_split_wspaces(scene->lines[i]);
 		put_textures(scene, tmp);
 		ft_2dstrfree(tmp);
 		i++;
 	}
+	scene->map_first_line = i + 1;
 }
 
 int	ft_row_count(char *argv)
@@ -92,7 +95,8 @@ void	get_colors(t_scene *scene)
 
 	i = 0;
 	tmp = NULL;
-	while (scene->lines && scene->lines[i])
+	while (scene->lines && scene->lines[i]
+			&& !(scene->f_color && scene->c_color))
 	{
 		tmp = ft_split_wspaces(scene->lines[i]);
 		j = 0;
@@ -107,6 +111,19 @@ void	get_colors(t_scene *scene)
 		ft_2dstrfree(tmp);
 		i++;
 	}
+	if (i >= scene->map_first_line)
+		scene->map_first_line = i + 1;
+}
+
+void	get_start_of_the_map(t_scene *scene)
+{
+	int	i;
+
+	i = scene->map_first_line;
+	while (i < scene->row && ft_is_emptyline(scene->lines[i++]))
+		scene->map_first_line++;
+	ft_printf("i: %d", i);
+	//scene->map_first_line += i;
 }
 
 void	get_scene_data(char *argv, t_scene *scene)
@@ -116,5 +133,11 @@ void	get_scene_data(char *argv, t_scene *scene)
 	get_lines(argv, scene);
 	get_textures(scene);
 	get_colors(scene);
-	// parse_map(scene);
+	// if (scene->no_texture && scene->so_texture && scene->we_texture   
+	// 	&& scene->ea_texture && scene->f_color && scene->c_color)
+	// 	get_start_of_the_map(scene);
+	// else
+	// 	ft_printf("Error\n");
+		
+	parse_map(scene);
 }
