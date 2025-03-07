@@ -15,9 +15,11 @@
 
 typedef struct s_map_data
 {
-        char    **coor;
-	char	player_x;
-	char	player_y;
+        int     row;
+        int     col;
+        int    *coor;
+	int	player_x;
+	int	player_y;
 	char	player_o;
 	int	player_flag;
 } t_map;
@@ -46,5 +48,6 @@ void    ft_dda_init(t_scene *scene);
 int     ft_row_count(char *argv);
 void    ft_free_all(t_scene *scene);
 void    ft_2dstrfree(char **str);
+void	ft_error(t_scene *scene);
 
 #endif

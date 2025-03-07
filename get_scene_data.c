@@ -47,7 +47,7 @@ void	get_textures(t_scene *scene)
 		ft_2dstrfree(tmp);
 		i++;
 	}
-	scene->map_first_line = i + 1;
+	scene->map_first_line = i;
 }
 
 int	ft_row_count(char *argv)
@@ -112,32 +112,39 @@ void	get_colors(t_scene *scene)
 		i++;
 	}
 	if (i >= scene->map_first_line)
-		scene->map_first_line = i + 1;
+		scene->map_first_line = i;
 }
 
-void	get_start_of_the_map(t_scene *scene)
+void	get_start_and_end_of_the_map(t_scene *scene)
 {
 	int	i;
 
-	i = scene->map_first_line;
-	while (i < scene->row && ft_is_emptyline(scene->lines[i++]))
-		scene->map_first_line++;
-	ft_printf("i: %d", i);
-	//scene->map_first_line += i;
+	i = scene->map_first_line + 1;
+	while (i < scene->row && ft_is_emptyline(scene->lines[i]))
+		i++;
+	scene->map_first_line = i;
+	while (i < scene->row && !ft_is_emptyline(scene->lines[i]))
+		i++;
+	scene->map_last_line = i - 1;
+	// printf("i: %d\n", i);
+	// printf("%d\n", scene->map_last_line);
+	while (i < scene->row && ft_is_emptyline(scene->lines[i]))
+			i++;
+	if (i != scene->row)
+		ft_error(scene);
 }
 
 void	get_scene_data(char *argv, t_scene *scene)
 {
 	scene->row = ft_row_count(argv);
-	printf("scene_row: %d\n", scene->row);
 	get_lines(argv, scene);
 	get_textures(scene);
 	get_colors(scene);
-	// if (scene->no_texture && scene->so_texture && scene->we_texture   
-	// 	&& scene->ea_texture && scene->f_color && scene->c_color)
-	// 	get_start_of_the_map(scene);
-	// else
-	// 	ft_printf("Error\n");
-		
+	if (scene->no_texture && scene->so_texture && scene->we_texture   
+		&& scene->ea_texture && scene->f_color && scene->c_color)
+		get_start_and_end_of_the_map(scene);
+	else
+		ft_error(scene);		
 	parse_map(scene);
+
 }

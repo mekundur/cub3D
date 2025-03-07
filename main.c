@@ -18,28 +18,25 @@ void	ft_cleanup(t_scene *scene)
 
 	i = 0;
 	while (scene->lines && scene->lines[i])
-	{
-		printf("%s", scene->lines[i]);
 		free(scene->lines[i++]);
-	}
 	free(scene->lines);
-	printf("%s", scene->no_texture);
 	free(scene->no_texture);
-	printf("%s", scene->so_texture);
 	free(scene->so_texture);
-	printf("%s", scene->we_texture);
 	free(scene->we_texture);
-	printf("%s", scene->ea_texture);
 	free(scene->ea_texture);
-	printf("%s", scene->f_color);
 	free(scene->f_color);
-	printf("%s", scene->c_color);
 	free(scene->c_color);
-	printf("%d\n", scene->map_first_line);
-	printf("%d\n", scene->map_last_line);
-
-
+	free(scene->map->coor);
 }
+
+void	ft_error(t_scene *scene)
+{
+	printf("Error\n");
+	ft_cleanup(scene);
+
+	exit(1);
+}
+
 
 void	initialize(t_scene *scene, t_map *map)
 {
@@ -56,6 +53,8 @@ void	initialize(t_scene *scene, t_map *map)
 	scene->map_first_line = 0;
 	scene->map_last_line = 0;
 	scene->map = map;
+	map->row = 0;
+	map->col = 0;
 	map->player_x = 0;
 	map->player_y = 0;
 	map->player_o = 0;
@@ -69,11 +68,24 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		printf("Please use the program as ./cub3D <scene>\n");
+		printf("Please execute the program as: ./cub3D <scene.cub>\n");
 		return (0);
 	}
 	initialize(&scene, &map);
 	get_scene_data(argv[1], &scene);
+
+	// while (scene.lines && *scene.lines)
+	// 	printf("%s", *(scene.lines++));
+	// printf("%s", scene.no_texture);
+	// printf("%s", scene.so_texture);
+	// printf("%s", scene.we_texture);
+	// printf("%s", scene.ea_texture);
+	// printf("%s", scene.f_color);
+	// printf("%s", scene.c_color);
+	// printf("%d\n", scene.row);
+	// printf("%d\n", scene.map_first_line);
+	// printf("%d\n", scene.map_last_line);
+	
 
 	ft_cleanup(&scene);
 	return (0);
