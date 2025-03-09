@@ -13,7 +13,7 @@
 NAME = cub3D
 LIBFT = ./libft/libft.a
 MLX42 = ./MLX42/build/libmlx42.a
-SOURCES = main.c get_scene_data.c parse_map.c utils_2dstr.c
+SOURCES = main.c get_scene_data.c parse_map.c utils_2dstr.c ft_flood_fill.c
 
 OBJECTS = $(SOURCES:.c=.o)
 

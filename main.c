@@ -59,6 +59,7 @@ void	initialize(t_scene *scene, t_map *map)
 	map->player_y = 0;
 	map->player_o = 0;
 	map->player_flag = 0;
+	map->coor = NULL;
 }
 
 int	main(int argc, char **argv)

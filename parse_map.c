@@ -25,7 +25,7 @@ void	map_row_col(t_scene *scene)
 	while (i < scene->map_last_line)
 	{
 		len = ft_strlen(scene->lines[i]) - 1;
-		printf("len: %d\n", len);
+		// printf("len: %d\n", len);
 		if (len > map->col)
 			map->col = len;
 		i++;
@@ -34,10 +34,10 @@ void	map_row_col(t_scene *scene)
 
 static int	ft_is_orientation(char s)
 {
-	char	*whitespace;
+	char	*directions;
 
-	whitespace = "WENS";
-	if (ft_strchr(whitespace, s))
+	directions = "WENS";
+	if (ft_strchr(directions, s))
 		return (1);
 	return (0);
 }
@@ -76,12 +76,12 @@ void	extract_map(t_scene *scene, t_map *map)
 				k = 0;
 				while (k < 7)
 				{
-					map->coor[i * map->col + k] = 5;
+					map->coor[i * map->col + k] = 0;
 					k++;
 				}
 			}
 			if (ft_is_whitespace(scene->lines[line][j]))
-				map->coor[i * map->col + j + k] = 5;
+				map->coor[i * map->col + j + k] = 0;
 			else if (scene->lines[line][j] == '0')
 				map->coor[i * map->col + j + k] = 0;
 			else if (scene->lines[line][j] == '1')
@@ -92,24 +92,28 @@ void	extract_map(t_scene *scene, t_map *map)
 				ft_error(scene);
 			j++;
 		}
+		while (j < map->col)
+		{	map->coor[i * map->col + j + k] = 0;
+			j++;
+		}
 		// printf("j: %d\n", j);
 		// printf("i: %d\n", i);
 		// printf("line: %d\n", line);
 		i++;
 		line++;
 	}
-	i = 0;
-	while (i < map->row)
-	{
-		j = 0;
-		while(j < map->col)
-		{
-			printf("%d", map->coor[i * map->col + j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
+	// i = 0;
+	// while (i < map->row)
+	// {
+	// 	j = 0;
+	// 	while(j < map->col)
+	// 	{
+	// 		printf("%d", map->coor[i * map->col + j]);
+	// 		j++;
+	// 	}
+	// 	printf("\n");
+	// 	i++;
+	// }
 }
 
 void	parse_map(t_scene *scene)
@@ -117,19 +121,18 @@ void	parse_map(t_scene *scene)
 	t_map	*map;
 
 	map = scene->map;
-	printf("%d\n", scene->map_first_line);
-	printf("%d\n", scene->map_last_line);
+	// printf("%d\n", scene->map_first_line);
+	// printf("%d\n", scene->map_last_line);
 
 	map_row_col(scene);
 
 	printf("map_row: %d\n", map->row);
 	printf("map_col: %d\n", map->col);
 
-	map->coor = (int *)malloc(map->row * map->col * sizeof(int));
-	ft_memset(map->coor, 5, map->row * map->col);
+	map->coor = (int *)ft_calloc(map->row * map->col, sizeof(int));
 
 	extract_map(scene, map);
 	if (!map->player_o)
 		ft_error(scene);
-
+	enclosed_map_check(scene, map);
 }

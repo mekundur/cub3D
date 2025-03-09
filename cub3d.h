@@ -11,8 +11,6 @@
 # include <math.h>
 # include "libft/libft.h"
 
-
-
 typedef struct s_map_data
 {
         int     row;
@@ -49,5 +47,7 @@ int     ft_row_count(char *argv);
 void    ft_free_all(t_scene *scene);
 void    ft_2dstrfree(char **str);
 void	ft_error(t_scene *scene);
+void    enclosed_map_check(t_scene *scene, t_map *map);
+
 
 #endif
