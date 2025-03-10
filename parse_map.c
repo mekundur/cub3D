@@ -129,7 +129,7 @@ void	parse_map(t_scene *scene)
 	printf("map_row: %d\n", map->row);
 	printf("map_col: %d\n", map->col);
 
-	map->coor = (int *)ft_calloc(map->row * map->col, sizeof(int));
+	map->coor = (char *)ft_calloc(map->row * map->col, sizeof(char));
 
 	extract_map(scene, map);
 	if (!map->player_o)

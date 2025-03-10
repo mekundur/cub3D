@@ -15,7 +15,7 @@ typedef struct s_map_data
 {
         int     row;
         int     col;
-        int    *coor;
+        char    *coor;
 	int	player_x;
 	int	player_y;
 	char	player_o;
