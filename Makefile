@@ -1,21 +1,20 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: mekundur <mekundur@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/02/19 16:21:47 by mekundur          #+#    #+#              #
-#    Updated: 2025/03/04 17:08:27 by mekundur         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = cub3D
+HEADER = includes/cub3d.h 
+SRC =  main.c init.c
+SRC := $(addprefix sources/, $(SRC))
+SRC_DRW = bonus_map.c bonus_map2.c drawing2.c drawing.c player.c \
+		player_key.c player_mouv.c utils2.c utils.c utils_math.c
+SRC_DRW := $(addprefix sources/drawing/, $(SRC_DRW))
+PRS_SRC = ft_flood_fill.c get_scene_data.c get_colors.c get_textures.c \
+		parse_map.c extract_map.c utils_2dstr.c
+PRS_SRC := $(addprefix sources/parser/, $(PRS_SRC))
+SRC += $(SRC_DRW)
+SRC += $(PRS_SRC)
+OBJ = ${SRC:%.c=%.o}
+MLX_DIR = ./minilibx-linux
+MLX_FLG = -lmlx -lX11 -lXext -lm
+MLX = ./minilibx-linux/libmlx_Linux.a
 LIBFT = ./libft/libft.a
-MLX42 = ./MLX42/build/libmlx42.a
-SOURCES = main.c get_scene_data.c parse_map.c utils_2dstr.c ft_flood_fill.c
-
-OBJECTS = $(SOURCES:.c=.o)
 
 all : $(NAME) 
 
@@ -23,31 +22,25 @@ $(LIBFT) :
 	@echo "<Compiling libft>"
 	@make -C ./libft
 
-%.o: %.c Makefile $(LIBFT)
+$(MLX) :
+	@echo "<Compiling minilibx>"
+	@make -C ./minilibx-linux
+
+%.o: %.c Makefile $(LIBFT) $(MLX)
 	@cc -c -g -Werror -Wall -Wextra $< -o $@ 
 
-$(NAME) : $(HEADER) $(LIBFT) $(OBJECTS) Makefile
+$(NAME) : $(HEADER) $(LIBFT) $(OBJ) Makefile
 	@echo "Creating the program <cub3D>"
-	@cc -g -Werror -Wall -Wextra $(OBJECTS) $(LIBFT) -Iinclude -ldl -lglfw -lm -o $(NAME)
+	@cc -g -Werror -Wall -Wextra -L$(MLX_DIR) $(OBJ) $(MLX_FLG) $(LIBFT) $(MLX) -Iinclude -ldl -lglfw -lm -o $(NAME)
 
-#$(MLX42) :
-#	@if [ ! -d "MLX42" ]; then \
-#		git clone https://github.com/codam-coding-college/MLX42.git; \
-#	fi
-#	@cd MLX42 && cmake -B build && cmake --build build -j4
-
-#%.o: %.c Makefile $(LIBFT) $(MLX42) 
-#	@cc -c -g -Werror -Wall -Wextra $< -o $@ 
-
-#$(NAME) : $(HEADER) $(MLX42) $(LIBFT) $(OBJECTS) Makefile
-#	@echo "Creating the program <fdf>"
-#	@cc -g -Werror -Wall -Wextra $(OBJECTS) $(LIBFT) $(MLX42) -Iinclude -ldl -lglfw -pthread -lm -o $(NAME)
+%.o: %.c
+	$(CC) -g $(CFLAGS) -I$(MLX_DIR) -c $< -o $@
 
 clean :
 	@echo "Removing object files"
-	@rm -f $(OBJECTS)
+	@rm -f $(OBJ)
 	@make clean -C ./libft	
-#	@make clean -C ./MLX42/build
+	@make clean -C ./minilibx-linux
 
 fclean : clean 
 	@echo "Removing the executable <cub3D>"

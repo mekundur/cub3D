@@ -1,29 +1,23 @@
-	/* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_2dstr.c                                      :+:      :+:    :+:   */
+/*   ft_remove_trailing_newline.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mekundur <mekundur@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/04 15:11:22 by mekundur          #+#    #+#             */
-/*   Updated: 2025/03/04 15:14:05 by mekundur         ###   ########.fr       */
+/*   Created: 2025/01/16 20:34:21 by mekundur          #+#    #+#             */
+/*   Updated: 2025/03/18 15:53:12 by mekundur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	ft_2dstrfree(char **str)
+// Remove trailing newline if present
+void	ft_remove_trailing_new_line(char *str)
 {
-	int	i;
+	size_t	len;
 
-	if (str == NULL)
-		return ;
-	i = 0;
-	while (str[i] != NULL)
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
-	str = NULL;
+	len = ft_strlen(str);
+	if (len > 0 && str[len - 1] == '\n')
+		str[len - 1] = '\0';
 }
