@@ -22,8 +22,9 @@ bool	touch(float px, float py, t_game *game)
 	char	**map;
 
 	map = game->map->map;
-	x = px / BLOCK;
-	y = py / BLOCK;
+	x = (int)px / BLOCK;
+	y = (int)py / BLOCK;
+
 	if (map[y][x] == '1')
 		return (true);
 	return (false);

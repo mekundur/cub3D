@@ -180,7 +180,6 @@ void				m_right(t_player *player, float cos_angle, float sin_angle,
 						int speed);
 void				update_angle(t_player *player, float angle_speed);
 void				check_boundaries(t_player *player);
-void				update_angle(t_player *player, float angle_speed);
 
 // UTILS
 

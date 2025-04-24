@@ -37,14 +37,20 @@ void	calc_ray(t_player *player, float start_x, float *ray_x, float *ray_y)
 	}
 	player->hit_x = prev_x;
 	player->hit_y = prev_y;
-	if (((int)prev_x / BLOCK != (int)*ray_x / BLOCK))
-	{
-		if (((int)(*ray_y) % BLOCK != 0 && (int)(*ray_y) % BLOCK != BLOCK - 1))
-			player->hit_dir = is_west_east(start_x);
-	}
-	else if ((((int)prev_y / BLOCK != (int)*ray_y / BLOCK))
-		&& ((int)(*ray_x) % BLOCK != 0))
+
+	if ((int)prev_x / BLOCK != (int)*ray_x / BLOCK)
+		player->hit_dir = is_west_east(start_x);
+	else if ((int)prev_y / BLOCK != (int)*ray_y / BLOCK)
 		player->hit_dir = is_nord_sud(start_x);
+
+	// if (((int)prev_x / BLOCK != (int)*ray_x / BLOCK))
+	// {
+	// 	if (((int)(*ray_y) % BLOCK != 0 && (int)(*ray_y) % BLOCK != BLOCK - 1))
+	// 		player->hit_dir = is_west_east(start_x);
+	// }
+	// else if ((((int)prev_y / BLOCK != (int)*ray_y / BLOCK))
+	// 	&& ((int)(*ray_x) % BLOCK != 0))
+	// 	player->hit_dir = is_nord_sud(start_x);
 }
 
 /* Removing distortion + fisheyes effect
