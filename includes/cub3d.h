@@ -6,7 +6,7 @@
 /*   By: mekundur <mekundur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:43:05 by drongier          #+#    #+#             */
-/*   Updated: 2025/03/21 11:43:02 by mekundur         ###   ########.fr       */
+/*   Updated: 2025/04/26 15:47:14 by mekundur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,13 +170,13 @@ void				init_game(t_game *game, t_scene *scene, t_map *map);
 int					key_release(int keycode, t_player *player);
 int					key_press(int keycode, t_player *player);
 void				move_player(t_player *player);
-void				m_up(t_player *player, float cos_angle, float sin_angle,
+void				m_up(t_player *player, int cos_angle, int sin_angle,
 						int speed);
-void				m_down(t_player *player, float cos_angle, float sin_angle,
+void				m_down(t_player *player, int cos_angle, int sin_angle,
 						int speed);
-void				m_left(t_player *player, float cos_angle, float sin_angle,
+void				m_left(t_player *player, int cos_angle, int sin_angle,
 						int speed);
-void				m_right(t_player *player, float cos_angle, float sin_angle,
+void				m_right(t_player *player, int cos_angle, int sin_angle,
 						int speed);
 void				update_angle(t_player *player, float angle_speed);
 void				check_boundaries(t_player *player);
