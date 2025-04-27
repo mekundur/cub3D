@@ -37,8 +37,9 @@ void	calc_ray(t_player *player, float start_x, float *ray_x, float *ray_y)
 	}
 	player->hit_x = prev_x;
 	player->hit_y = prev_y;
-
-	if ((int)(prev_x / BLOCK) != (int)(*ray_x / BLOCK))
+	if ((int)(prev_x / BLOCK) != (int)(*ray_x / BLOCK) && (int)(prev_y / BLOCK) != (int)(*ray_y / BLOCK))
+		return ;
+	else if ((int)(prev_x / BLOCK) != (int)(*ray_x / BLOCK))
 	{
 		player->hit_dir = is_west_east(start_x);
 		printf("X: %d, %d | ", (int)prev_x / BLOCK, (int)*ray_x / BLOCK);
