@@ -6,7 +6,7 @@
 /*   By: mekundur <mekundur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 16:53:31 by mekundur          #+#    #+#             */
-/*   Updated: 2025/03/04 16:59:29 by mekundur         ###   ########.fr       */
+/*   Updated: 2025/05/12 13:15:20 by mekundur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ int	ft_is_emptyline(char *s)
 {
 	int	i;
 
-	i = 0;
-	while (s && s[i] && ft_is_whitespace(s[i]))
-		i++;
-	if (s[i] == '\n')
+	if (!s)
 		return (1);
-	return (0);
+	i = 0;
+	while (s[i] && ft_is_whitespace(s[i]))
+		i++;
+	return (s[i] == '\n' || s[i] == '\0');
 }

@@ -6,7 +6,7 @@
 /*   By: mekundur <mekundur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:07:44 by mekundur          #+#    #+#             */
-/*   Updated: 2025/03/20 18:45:32 by mekundur         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:01:55 by mekundur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,20 @@ void	map_row_col(t_scene *scene)
 	}
 }
 
-void	get_map(t_map *map)
+void	get_map(t_scene *scene, t_map *map)
 {
 	int	i;
 	int	j;
 
 	map->map = (char **)ft_calloc(map->row + 1, sizeof(char *));
+	if (!map->map)
+		ft_error(scene, "Allocation error!");
 	i = 0;
 	while (i < map->row)
 	{
 		map->map[i] = (char *)ft_calloc(map->col + 1, sizeof(char));
+		if (!map->map[i])
+			ft_error(scene, "Allocation error!");
 		j = 0;
 		while (j < map->col)
 		{
@@ -61,9 +65,11 @@ void	parse_map(t_scene *scene)
 	map = scene->map;
 	map_row_col(scene);
 	map->coor = (char *)ft_calloc(map->row * map->col, sizeof(char));
+	if (!map->coor)
+		ft_error(scene, "Allocation error!");
 	extract_map(scene, map);
 	if (!map->player_o)
-		ft_error(scene);
+		ft_error(scene, "Missing spawning position / Wrong direction value");
 	enclosed_map_check(scene, map);
 	encode_ceiling_color(scene, map);
 	encode_floor_color(scene, map);

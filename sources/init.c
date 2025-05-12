@@ -6,7 +6,7 @@
 /*   By: mekundur <mekundur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:39:19 by mekundur          #+#    #+#             */
-/*   Updated: 2025/04/26 15:14:15 by mekundur         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:27:18 by mekundur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	init_parser(t_scene *scene, t_map *map)
 	scene->ea_texture = NULL;
 	scene->f_color = NULL;
 	scene->c_color = NULL;
-	scene->del_line = 0;
+	scene->texture_count = 0;
+	scene->color_count = 0;
 	scene->map_first_line = 0;
 	scene->map_last_line = 0;
 	scene->map = map;
@@ -53,7 +54,7 @@ void	init_textures(t_game *game)
 		game->textures[i].img = mlx_xpm_file_to_image(game->mlx, paths[i],
 				&game->textures[i].width, &game->textures[i].height);
 		if (!game->textures[i].img)
-			ft_error(game->scene);
+			ft_error(game->scene, "Issue about texture file!");
 		game->textures[i].data = mlx_get_data_addr(game->textures[i].img,
 				&game->textures[i].bpp, &game->textures[i].size_line,
 				&game->textures[i].endian);
@@ -77,7 +78,7 @@ void	init_player(t_player *player, t_map *map, t_game *game)
 {
 	player->o = map->player_o;
 	player->x = (float)map->player_x * BLOCK + BLOCK / 2;
-	player->y = (float)map->player_y * BLOCK + BLOCK / 2;
+	player->y = (float)map->player_y * BLOCK + BLOCK / 2 ;
 	player->hit_dir = -1;
 	player->hit_x = 0;
 	player->hit_y = 0;

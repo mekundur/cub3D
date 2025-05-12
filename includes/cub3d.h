@@ -6,7 +6,7 @@
 /*   By: mekundur <mekundur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:43:05 by drongier          #+#    #+#             */
-/*   Updated: 2025/04/26 15:47:14 by mekundur         ###   ########.fr       */
+/*   Updated: 2025/05/12 13:57:54 by mekundur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,10 @@ typedef struct s_scene_data
 	char			*so_texture;
 	char			*we_texture;
 	char			*ea_texture;
+	int				texture_count;
 	char			*f_color;
 	char			*c_color;
-	int				del_line;
+	int				color_count;
 	int				map_first_line;
 	int				map_last_line;
 	t_map			*map;
@@ -87,7 +88,7 @@ typedef struct s_player
 	bool			key_down;
 	bool			key_left;
 	bool			key_right;
-	bool			key_exit;
+	bool			key_exit;	
 	bool			left_rotate;
 	bool			right_rotate;
 	int				hit_dir;
@@ -107,6 +108,26 @@ typedef struct s_texture
 	int				size_line;
 	int				endian;
 }					t_texture;
+
+typedef struct s_ray
+{
+	float			x;
+	float			y;
+	float			cos_a;
+	float			sin_a;
+	int				map_x;
+	int				map_y;
+	int				step_x;
+	int				step_y;
+	float			side_dist_x;
+	float			side_dist_y;
+	float			delta_dist_x;
+	float			delta_dist_y;
+	float			angle;
+	float			dir_x;
+	float			dir_y;
+	int				side;
+}					t_ray;
 
 typedef struct s_minimap
 {
@@ -133,6 +154,7 @@ typedef struct s_game
 	t_texture		textures[4];
 	int				map_width;
 	int				map_height;
+	t_ray			ray;
 	t_player		player;
 	t_map			*map;
 	t_scene			*scene;
@@ -146,16 +168,19 @@ void				get_textures(t_scene *scene);
 void				get_scene_data(char *argv, t_scene *scene);
 void				parse_map(t_scene *scene);
 void				extract_map(t_scene *scene, t_map *map);
-int					ft_row_count(char *argv);
+int					ft_row_count(t_scene *scene, char *argv);
 void				ft_2dstrfree(char **str);
-void				ft_error(t_scene *scene);
 void				enclosed_map_check(t_scene *scene, t_map *map);
-void				get_map(t_map *map);
+void				get_map(t_scene *scene, t_map *map);
 void				encode_ceiling_color(t_scene *scene, t_map *map);
 void				encode_floor_color(t_scene *scene, t_map *map);
 
 // EXIT
 
+void				ft_error(t_scene *scene, char *message);
+void				ft_config_file_check(char *argv);
+void				ft_textures_files_check(t_scene *scene);
+// void				ft_cleanup(t_scene *scene);
 void				exit_game(t_game *game);
 
 // INITIALISATION
@@ -206,11 +231,12 @@ void				draw_ceiling(int i, int start_y, t_game *game);
 
 // BONUS MINIMAP
 
+int					get_cell_index(float coord);
+int					is_diagonal(int curr_x, int curr_y, int next_x, int next_y);
 void				draw_mini_map(t_game *game);
 void				draw_scope(t_game *game);
 void				put_pixel_minimap(t_game *game, float x, float y,
 						t_minimap *mini);
-void				calcu_ray(float *x, float *y, float cos_a, float sin_a);
-void				ray_tracing(t_game *game, float angle, float *x, float *y);
+void				ray_tracing(t_game *game, float angle);
 
 #endif
